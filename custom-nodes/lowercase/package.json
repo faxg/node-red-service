@@ -1,0 +1,16 @@
+{
+  "name": "lowercase",
+  "version": "1.0.0",
+  "description": "Node-Red custom node \"lowercase\" example",
+  "main": "lowercase.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Florian Georg",
+  "license": "ISC",
+  "node-red": {
+    "nodes": {
+      "lower-case": "lowercase.js"
+    }
+  }
+}
