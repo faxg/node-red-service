@@ -3,6 +3,7 @@
 /**
  * Module dependencies.
  */
+console.log ("Starting node-red-service .....")
 
 var application = require('../app');
 var debug = require('debug')('service:server');
@@ -34,6 +35,9 @@ var ipaddress = process.env.OPENSHIFT_NODEJS_IP || "0.0.0.0";
 app.set('port', port);
 
 app.set('ipaddress', ipaddress);
+
+
+console.log (`Trying to listening on: ${ipadress}:${port}`)
 
 
 
@@ -102,7 +106,7 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  console.log('Listening on ' + bind);
 }
 
 
