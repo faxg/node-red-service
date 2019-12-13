@@ -8,6 +8,7 @@ CMD ["npm", "run", "start"]
 COPY package.json /tmp/package.json
 RUN cd /tmp && npm install
 RUN mkdir -p /app && cp -a /tmp/node_modules /app/
+
 WORKDIR /app
 COPY bin ./bin
 COPY *.js ./
@@ -17,3 +18,5 @@ COPY public ./public
 COPY routes ./routes
 COPY views ./views
 COPY workspace ./workspace
+COPY winston ./winston
+RUN mkdir -p ./logs

@@ -1,20 +1,30 @@
+#!/usr/bin/env node
+
+'use strict';
 
 /**
  * Module dependencies.
  */
-console.log ("Starting node-red-service .....")
+const morgan = require('morgan');
+const winston = require('../winston/config')
+
+
+ console.log ("Starting node-red-service .....")
 
 var application = require('../app');
-var debug = require('debug')('service:server');
+var debug = require('debug')('nodejs-configmap-redhat');
 var http = require('http');
 var express = require('express');
 
 // the instance of node-red
-RED = application.RED;
+var RED = application.RED;
 // the express application
-app = application.expressApp;
+var app = application.expressApp;
+app.use(morgan('combined', { stream: winston.stream }));
+winston.info('You have successfully started working with winston and morgan');
+
 // the http server
-server =application.server
+var server =application.server
 /**
  * Get the HTTP server associated with the Express App
  */
@@ -36,7 +46,7 @@ app.set('port', port);
 app.set('ipaddress', ipaddress);
 
 
-console.log (`Trying to listening on: ${ipadress}:${port}`)
+winston.info (`Trying to listening on: ${ipaddress}:${port}`)
 
 
 
@@ -84,11 +94,11 @@ function onError(error) {
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
+      winston.error(bind + ' requires elevated privileges');
       process.exit(1);
       break;
     case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
+      winston.error(bind + ' is already in use');
       process.exit(1);
       break;
     default:
@@ -105,7 +115,7 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  console.log('Listening on ' + bind);
+  winston.info('Listening on ' + bind);
 }
 
 
@@ -133,9 +143,10 @@ RED.start().then((result) => {
   
   var os = RED.nodes.getContext().global.get('os')
 
-  console.log ("Node red flows have been started on + http://0.0.0.0:" + port+"/editor");
+  winston.info ("Node red flows have been started on + http://0.0.0.0:" + port+"/editor");
 
-  console.log(RED.nodes.getFlows());
+  winston.info(RED.nodes.getFlows());
+
 }).catch((err) => {
   if (/^timed out/.test(err.message)) {
       // embeddedStart() timed out
