@@ -23,7 +23,7 @@ var RED = application.RED;
 // the express application
 var app = application.expressApp;
 app.use(morgan('combined', { stream: winston.stream }));
-winston.info('Started logging ...');
+winston.info('Started logging');
 
 // the http server
 var server =application.server
