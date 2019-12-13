@@ -2,6 +2,9 @@
 
 'use strict';
 
+console.log ("Starting node-red-service .....")
+
+
 /**
  * Module dependencies.
  */
@@ -9,7 +12,6 @@ const morgan = require('morgan');
 const winston = require('../winston/config')
 
 
- console.log ("Starting node-red-service .....")
 
 var application = require('../app');
 var debug = require('debug')('nodejs-configmap-redhat');
@@ -21,7 +23,7 @@ var RED = application.RED;
 // the express application
 var app = application.expressApp;
 app.use(morgan('combined', { stream: winston.stream }));
-winston.info('You have successfully started working with winston and morgan');
+winston.info('Started logging ...');
 
 // the http server
 var server =application.server
