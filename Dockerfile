@@ -26,7 +26,7 @@ COPY workspace ./workspace
 COPY winston ./winston
 RUN mkdir -p ./logs
 
-RUN chmod -R 755 /app
+RUN chmod -R 775 /app
 RUN chown -R node:root /app
 
 USER 1000
