@@ -150,6 +150,8 @@ RED.start().then((result) => {
   winston.info(RED.nodes.getFlows());
 
 }).catch((err) => {
+  winston.error (err.message);
+  
   if (/^timed out/.test(err.message)) {
       // embeddedStart() timed out
       // the value that RED.start() resolved to is available as err.result
