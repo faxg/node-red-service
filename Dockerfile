@@ -5,7 +5,7 @@ EXPOSE 8080
 
 RUN adduser node root
 
-VOLUME [ "/app/workspace" ]
+#VOLUME [ "/app/workspace" ]
 
 
 #instead of RUN npm install
