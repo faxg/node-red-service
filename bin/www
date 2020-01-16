@@ -138,6 +138,7 @@ function onListening() {
 //       // the value that RED.start() resolved to is available as err.result
 //   }
 // });
+winston.info("Starting Node-Red runtime...");
 
 RED.start().then((result) => {
   // result is whatever RED.start() resolved to
