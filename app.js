@@ -7,9 +7,15 @@ var exphbs  = require('express-handlebars');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const winston = require('./winston/config')
+
 
 var RED = require('node-red');
 var http = require('http');
+
+const probe = require('kube-probe')
+
+
 
 
 var indexRouter = require('./routes/index');
@@ -80,6 +86,23 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 //app.use('/discovery', discoveryRouter);
+
+// add kube probes (healthcheck and readiness check) to express app
+// /api/health/liveness
+// /api/health/readiness
+probe(app, {
+  readinessURL: '/api/health/readiness',
+  readinessCallback: function(request, response){
+    winston.info ("readiness probe triggered")
+    return response.end('ready')
+  },
+  livenessURL: '/api/health/liveness',
+  livenessCallback: function(request, response){
+    winston.info ("liveness probe triggered")
+    return response.end('alive')
+  },
+});
+winston.info('Added kubernetes probes');
 
 
 

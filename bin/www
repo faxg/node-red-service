@@ -8,15 +8,20 @@ console.log ("Starting node-red-service .....")
 /**
  * Module dependencies.
  */
-const morgan = require('morgan');
 const winston = require('../winston/config')
-
+const morgan = require ('morgan')
 
 
 var application = require('../app');
 var debug = require('debug')('nodejs-configmap-redhat');
 var http = require('http');
 var express = require('express');
+
+
+
+
+
+
 
 // the instance of node-red
 var RED = application.RED;
@@ -25,11 +30,12 @@ var app = application.expressApp;
 app.use(morgan('combined', { stream: winston.stream }));
 winston.info('Started logging');
 
+
+
 // the http server
 var server =application.server
-/**
- * Get the HTTP server associated with the Express App
- */
+
+
 
 
 

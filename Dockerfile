@@ -3,7 +3,7 @@ FROM node:10
 ENV PORT=8080
 EXPOSE 8080
 
-RUN adduser node root
+
 
 #VOLUME [ "/app/workspace" ]
 
@@ -26,9 +26,9 @@ COPY workspace ./workspace
 COPY winston ./winston
 RUN mkdir -p ./logs
 
+RUN adduser node root
 RUN chmod -R 775 /app
 RUN chown -R node:root /app
-
 USER 1000
 
 
