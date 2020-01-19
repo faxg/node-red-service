@@ -7,6 +7,20 @@
         "info": ""
     },
     {
+        "id": "6d26dcfd.cba364",
+        "type": "tab",
+        "label": "Test Ping Service",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "b2c45754.4ed748",
+        "type": "tab",
+        "label": "Test Text Extraction",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "bdb9d860.eebc98",
         "type": "http in",
         "z": "f150cfd5.8db36",
@@ -58,6 +72,78 @@
         "info": "This is a simple HTTP endpoint. The response will be 200 OK with a standard message and timestamp. \nAll request parameters are copied over.",
         "x": 260,
         "y": 80,
+        "wires": []
+    },
+    {
+        "id": "921fd49c.20db78",
+        "type": "inject",
+        "z": "6d26dcfd.cba364",
+        "name": "trigger ping (with json payload)",
+        "topic": "",
+        "payload": "{\"message\":\"Ping request\"}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 170,
+        "y": 140,
+        "wires": [
+            [
+                "d3a89c3e.c5ed4",
+                "9f9c386b.250b28"
+            ]
+        ]
+    },
+    {
+        "id": "d3a89c3e.c5ed4",
+        "type": "http request",
+        "z": "6d26dcfd.cba364",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": true,
+        "url": "http://localhost:8080/api/ping",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 370,
+        "y": 100,
+        "wires": [
+            [
+                "7eda77d2.b3a1a8"
+            ]
+        ]
+    },
+    {
+        "id": "7eda77d2.b3a1a8",
+        "type": "debug",
+        "z": "6d26dcfd.cba364",
+        "name": "output response payload",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 630,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "9f9c386b.250b28",
+        "type": "debug",
+        "z": "6d26dcfd.cba364",
+        "name": "output request payload",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 400,
+        "y": 240,
         "wires": []
     },
     {
@@ -140,5 +226,77 @@
                 "541da1d6.d6f6a"
             ]
         ]
+    },
+    {
+        "id": "64eb62c8.62f10c",
+        "type": "debug",
+        "z": "b2c45754.4ed748",
+        "name": "debug request payload",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 410,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "ecec5795.895548",
+        "type": "inject",
+        "z": "b2c45754.4ed748",
+        "name": "call /api/extract-text",
+        "topic": "",
+        "payload": "{\"message\":\"Ping request\"}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 140,
+        "y": 220,
+        "wires": [
+            [
+                "77b0efff.f78c3",
+                "64eb62c8.62f10c"
+            ]
+        ]
+    },
+    {
+        "id": "77b0efff.f78c3",
+        "type": "http request",
+        "z": "b2c45754.4ed748",
+        "name": "",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": true,
+        "url": "http://localhost:8080/api/extract-text",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 380,
+        "y": 180,
+        "wires": [
+            [
+                "9b7e2000.aa2d9"
+            ]
+        ]
+    },
+    {
+        "id": "9b7e2000.aa2d9",
+        "type": "debug",
+        "z": "b2c45754.4ed748",
+        "name": "debug response",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 610,
+        "y": 240,
+        "wires": []
     }
 ]
