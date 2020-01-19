@@ -2,14 +2,7 @@
     {
         "id": "f150cfd5.8db36",
         "type": "tab",
-        "label": "Ping Service",
-        "disabled": false,
-        "info": ""
-    },
-    {
-        "id": "6d26dcfd.cba364",
-        "type": "tab",
-        "label": "Test Ping Service",
+        "label": "API endpoints",
         "disabled": false,
         "info": ""
     },
@@ -68,75 +61,84 @@
         "wires": []
     },
     {
-        "id": "921fd49c.20db78",
-        "type": "inject",
-        "z": "6d26dcfd.cba364",
-        "name": "trigger ping (with json payload)",
-        "topic": "",
-        "payload": "{\"message\":\"Ping request\"}",
-        "payloadType": "json",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "x": 170,
-        "y": 140,
+        "id": "a1af0c6.16305f",
+        "type": "http in",
+        "z": "f150cfd5.8db36",
+        "name": "",
+        "url": "/extract-text",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 130,
+        "y": 260,
         "wires": [
             [
-                "d3a89c3e.c5ed4",
-                "9f9c386b.250b28"
+                "f4bb59be.daa948"
             ]
         ]
     },
     {
-        "id": "d3a89c3e.c5ed4",
-        "type": "http request",
-        "z": "6d26dcfd.cba364",
+        "id": "51438644.3b2988",
+        "type": "http response",
+        "z": "f150cfd5.8db36",
         "name": "",
-        "method": "GET",
+        "statusCode": "",
+        "headers": {},
+        "x": 750,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "f4bb59be.daa948",
+        "type": "json",
+        "z": "f150cfd5.8db36",
+        "name": "parse json body",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 300,
+        "y": 340,
+        "wires": [
+            [
+                "f85bf66b.0259d8"
+            ]
+        ]
+    },
+    {
+        "id": "541da1d6.d6f6a",
+        "type": "function",
+        "z": "f150cfd5.8db36",
+        "name": "create response object",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 660,
+        "y": 340,
+        "wires": [
+            [
+                "51438644.3b2988"
+            ]
+        ]
+    },
+    {
+        "id": "f85bf66b.0259d8",
+        "type": "http request",
+        "z": "f150cfd5.8db36",
+        "name": "post to Anyline webAPI",
+        "method": "POST",
         "ret": "obj",
-        "paytoqs": true,
-        "url": "http://localhost:8080/api/ping",
+        "paytoqs": false,
+        "url": "http://webapi.svc.cluster.local:8080",
         "tls": "",
         "persist": false,
         "proxy": "",
         "authType": "",
-        "x": 370,
-        "y": 100,
+        "x": 490,
+        "y": 240,
         "wires": [
             [
-                "7eda77d2.b3a1a8"
+                "541da1d6.d6f6a"
             ]
         ]
-    },
-    {
-        "id": "7eda77d2.b3a1a8",
-        "type": "debug",
-        "z": "6d26dcfd.cba364",
-        "name": "output response payload",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "x": 630,
-        "y": 160,
-        "wires": []
-    },
-    {
-        "id": "9f9c386b.250b28",
-        "type": "debug",
-        "z": "6d26dcfd.cba364",
-        "name": "output request payload",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "x": 400,
-        "y": 240,
-        "wires": []
     }
 ]
