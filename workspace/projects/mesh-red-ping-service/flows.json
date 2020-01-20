@@ -76,8 +76,8 @@
         "method": "post",
         "upload": false,
         "swaggerDoc": "",
-        "x": 130,
-        "y": 260,
+        "x": 100,
+        "y": 340,
         "wires": [
             [
                 "f4bb59be.daa948"
@@ -91,8 +91,8 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 750,
-        "y": 240,
+        "x": 870,
+        "y": 340,
         "wires": []
     },
     {
@@ -119,8 +119,8 @@
         "func": "\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 660,
-        "y": 340,
+        "x": 580,
+        "y": 480,
         "wires": [
             [
                 "51438644.3b2988"
@@ -140,8 +140,8 @@
         "persist": false,
         "proxy": "",
         "authType": "",
-        "x": 490,
-        "y": 240,
+        "x": 350,
+        "y": 440,
         "wires": [
             [
                 "541da1d6.d6f6a"
@@ -311,5 +311,38 @@
         "x": 580,
         "y": 180,
         "wires": []
+    },
+    {
+        "id": "c7d7519f.7582c",
+        "type": "catch",
+        "z": "f150cfd5.8db36",
+        "name": "error calling webapi",
+        "scope": [
+            "f85bf66b.0259d8"
+        ],
+        "uncaught": false,
+        "x": 570,
+        "y": 420,
+        "wires": [
+            [
+                "cbce0229.3ffb9"
+            ]
+        ]
+    },
+    {
+        "id": "cbce0229.3ffb9",
+        "type": "function",
+        "z": "f150cfd5.8db36",
+        "name": "create error response",
+        "func": "msg.payload = {\n    timestamp: new Date(),\n    status: \"error\",\n    message: msg.error.message\n    \n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 640,
+        "y": 340,
+        "wires": [
+            [
+                "51438644.3b2988"
+            ]
+        ]
     }
 ]
