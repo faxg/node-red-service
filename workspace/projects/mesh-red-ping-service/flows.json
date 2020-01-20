@@ -26,7 +26,7 @@
         "y": 140,
         "wires": [
             [
-                "ec777f74.9d67"
+                "55c5baa1.aca7b4"
             ]
         ]
     },
@@ -35,10 +35,10 @@
         "type": "function",
         "z": "f150cfd5.8db36",
         "name": "ping response",
-        "func": "msg.payload = {\n    message: \"Ping response\",\n    timestamp: new Date()\n}\nreturn msg;",
+        "func": "// wrap in object with timestamp\nmsg.payload  = {\n    message: msg.payload,\n    timestamp: new Date()\n}\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 340,
+        "x": 660,
         "y": 140,
         "wires": [
             [
@@ -53,7 +53,7 @@
         "name": "",
         "statusCode": "200",
         "headers": {},
-        "x": 560,
+        "x": 860,
         "y": 140,
         "wires": []
     },
@@ -135,7 +135,7 @@
         "method": "POST",
         "ret": "obj",
         "paytoqs": false,
-        "url": "http://node-red-service:8080",
+        "url": "http://webapi:8080",
         "tls": "",
         "persist": false,
         "proxy": "",
@@ -169,7 +169,7 @@
         "z": "b2c45754.4ed748",
         "name": "call extract-text API (with valid request)",
         "topic": "",
-        "payload": "{\"message\":\"Ping request\"}",
+        "payload": "{}",
         "payloadType": "json",
         "repeat": "",
         "crontab": "",
@@ -274,6 +274,42 @@
         "targetType": "msg",
         "x": 600,
         "y": 440,
+        "wires": []
+    },
+    {
+        "id": "55c5baa1.aca7b4",
+        "type": "http request",
+        "z": "f150cfd5.8db36",
+        "name": "call liveness probe (/api/health/liveness)",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": false,
+        "url": "http://0.0.0.0:8080/api/health/liveness",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 380,
+        "y": 140,
+        "wires": [
+            [
+                "ec777f74.9d67",
+                "20ac3a9e.94a486"
+            ]
+        ]
+    },
+    {
+        "id": "20ac3a9e.94a486",
+        "type": "debug",
+        "z": "f150cfd5.8db36",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 580,
+        "y": 180,
         "wires": []
     }
 ]
